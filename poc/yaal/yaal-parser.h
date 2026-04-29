@@ -29,27 +29,27 @@
 #include <stdint.h>
 
 enum yaal_state {
-	YAAL_STATE_ST = 0,	/* start */
-	YAAL_STATE_NL = 1,	/* newline (last consumed byte was '\n') */
-	YAAL_STATE_ID = 2,	/* indent run on current line */
-	YAAL_STATE_VL = 3,	/* value run on current line */
+    YAAL_STATE_ST = 0, /* start */
+    YAAL_STATE_NL = 1, /* newline (last consumed byte was '\n') */
+    YAAL_STATE_ID = 2, /* indent run on current line */
+    YAAL_STATE_VL = 3, /* value run on current line */
 };
 
 enum yaal_class {
-	YAAL_CLASS_NL = 0,	/* '\n' */
-	YAAL_CLASS_SP = 1,	/* ' ' */
-	YAAL_CLASS_NS = 2,	/* anything else */
+    YAAL_CLASS_NL = 0, /* '\n' */
+    YAAL_CLASS_SP = 1, /* ' ' */
+    YAAL_CLASS_NS = 2, /* anything else */
 };
 
 enum yaal_impl {
-	YAAL_IMPL_SCALAR = 0,
-	YAAL_IMPL_AVX2 = 1,
+    YAAL_IMPL_SCALAR = 0,
+    YAAL_IMPL_AVX2 = 1,
 };
 
 struct yaal_transition {
-	size_t offset;
-	enum yaal_state from;
-	enum yaal_state to;
+    size_t offset;
+    enum yaal_state from;
+    enum yaal_state to;
 };
 
 /*
@@ -57,16 +57,14 @@ struct yaal_transition {
  * Offsets are absolute over the whole stream of bytes fed to the parser
  * (multiple feed calls accumulate).
  */
-typedef void (*yaal_on_transition_fn)(void *ctx, size_t offset,
-				      enum yaal_state from,
-				      enum yaal_state to);
+typedef void (*yaal_on_transition_fn)(void *ctx, size_t offset, enum yaal_state from,
+                                      enum yaal_state to);
 
 extern const uint8_t yaal_transition_table[4][3];
 
 struct yaal_parser;
 
-struct yaal_parser *yaal_parser_create(enum yaal_impl impl,
-				       yaal_on_transition_fn cb, void *ctx);
+struct yaal_parser *yaal_parser_create(enum yaal_impl impl, yaal_on_transition_fn cb, void *ctx);
 void yaal_parser_destroy(struct yaal_parser *p);
 void yaal_parser_feed(struct yaal_parser *p, const uint8_t *buf, size_t len);
 enum yaal_state yaal_parser_state(const struct yaal_parser *p);

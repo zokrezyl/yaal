@@ -1,0 +1,56 @@
+# Yetty C style — derived from LLVM with Linux-kernel-inspired tweaks.
+# Keep in sync with docs/c-coding-style.md.
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Indentation: 4 spaces, never tabs. This is the normalization target for
+# files currently using tabs.
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+
+# Braces: functions on their own line (Linux-kernel style); everything else
+# attached (K&R-ish).
+BreakBeforeBraces: Linux
+
+# Pointer alignment: "type *name" per docs/c-coding-style.md.
+PointerAlignment: Right
+DerivePointerAlignment: false
+
+# Line length — generous, matches existing code.
+ColumnLimit: 100
+
+# Case labels at the same level as switch.
+IndentCaseLabels: false
+
+# Keep short blocks readable but don't collapse them.
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# Spacing.
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpacesInCStyleCastParentheses: false
+
+# Includes — leave ordering to authors (header deps in this project are
+# order-sensitive in places).
+SortIncludes: false
+
+# No re-wrapping of comments; we hand-format block comments.
+ReflowComments: false
+
+# Alignment.
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignTrailingComments: true
+
+# Penalty tuning — discourage breaking after return type.
+PenaltyReturnTypeOnItsOwnLine: 200
+AlwaysBreakAfterReturnType: None
